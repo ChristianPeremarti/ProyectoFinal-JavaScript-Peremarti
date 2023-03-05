@@ -102,12 +102,20 @@ function removeItemCarrito(e){
     }
   }
 
-  const alert = document.querySelector('.remove')
+  //const alert = document.querySelector('.remove')
 
+  Swal.fire({
+    title: 'Usted removió un producto',
+    icon: 'info',
+    confirmButtonText: 'Continuar'
+  })
+
+  /*
   setTimeout( function(){
     alert.classList.add('remove')
   }, 2000)
     alert.classList.remove('remove')
+  */
 
   tr.remove()
   CarritoTotal()
@@ -137,3 +145,23 @@ window.onload = function(){
     renderCarrito()
   }
 }
+
+//JSON
+
+fetch('imagenes.json')
+  .then( (response) => {
+    return response.json();
+  })
+  .then( (json) => {
+    const imagenZapa = json.results;
+
+    renderizarImagen(imagenZapa);
+  });
+
+function renderizarImagen(imagenZapa) {
+  for(const {} of imagenZapa) {
+
+  }
+}
+
+const carouselUno = document.getElementById ('carouselUno');
