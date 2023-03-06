@@ -148,20 +148,39 @@ window.onload = function(){
 
 //JSON
 
-fetch('imagenes.json')
-  .then( (response) => {
-    return response.json();
-  })
-  .then( (json) => {
-    const imagenZapa = json.results;
-
-    renderizarImagen(imagenZapa);
-  });
-
-function renderizarImagen(imagenZapa) {
-  for(const {} of imagenZapa) {
-
+class zapaNike {
+  constructor (imagenZapatilla) {
+    this.imagenZapatilla = imagenZapatilla;
   }
 }
 
-const carouselUno = document.getElementById ('carouselUno');
+function renderizarimagenesZapatillas(zapaNikeDos) {
+  for(const imagenZapatillaNike of imagenesZapatillas){
+    console.log(imagenZapatillaNike);
+  }
+}
+  
+
+function obtenerImagenJson () {
+  fetch('imagenes.json')
+    .then( (response) => {
+      return response.json();
+    })
+    .then( (imagenesJSON) => {
+
+      for (const zapaNikeJSON of imagenesJSON){
+        zapaNikeDos.push(new zapaNike(
+          imagenesJSON.imagenZapatilla
+        ));
+      }
+
+      zapaNikeDos = imagenesJSON;
+
+    });
+
+}
+
+
+const imagenesZapatillas = document.getElementById('carousel-imagen');
+let zapaNikeDos = [];
+obtenerImagenJson();
