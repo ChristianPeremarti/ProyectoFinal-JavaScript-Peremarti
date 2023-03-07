@@ -6,6 +6,7 @@ Clickbutton.forEach(btn => {
   btn.addEventListener('click', addToCarritoItem)
 })
 
+  //Agregar al carrito
 
 function addToCarritoItem(e){
   const button = e.target
@@ -23,7 +24,6 @@ function addToCarritoItem(e){
 
   addItemCarrito(newItem)
 }
-
 
 function addItemCarrito(newItem){
 
@@ -50,6 +50,7 @@ function addItemCarrito(newItem){
   renderCarrito()
 } 
 
+  // Renderizar
 
 function renderCarrito(){
   tbody.innerHTML = ''
@@ -91,6 +92,8 @@ function CarritoTotal(){
   addLocalStorage()
 }
 
+  // remover productos del carrito
+
 function removeItemCarrito(e){
   const buttonDelete = e.target
   const tr = buttonDelete.closest(".ItemCarrito")
@@ -102,7 +105,8 @@ function removeItemCarrito(e){
     }
   }
 
-  //const alert = document.querySelector('.remove')
+
+  // Alerta librería
 
   Swal.fire({
     title: 'Usted removió un producto',
@@ -110,16 +114,11 @@ function removeItemCarrito(e){
     confirmButtonText: 'Continuar'
   })
 
-  /*
-  setTimeout( function(){
-    alert.classList.add('remove')
-  }, 2000)
-    alert.classList.remove('remove')
-  */
-
   tr.remove()
   CarritoTotal()
 }
+
+  // sumar cantidades dentro del carrito
 
 function sumaCantidad(e){
   const sumaInput  = e.target
@@ -134,6 +133,8 @@ function sumaCantidad(e){
   })
 }
 
+  // LocalStorage
+
 function addLocalStorage(){
   localStorage.setItem('carrito', JSON.stringify(carrito))
 }
@@ -146,41 +147,25 @@ window.onload = function(){
   }
 }
 
-//JSON
+// Botón JSON
 
-class zapaNike {
-  constructor (imagenZapatilla) {
-    this.imagenZapatilla = imagenZapatilla;
-  }
+const cargarJSONBtn = document.querySelector('#cargarJSON');
+cargarJSONBtn.addEventListener('click', obtenerDatos);
+
+
+function obtenerDatos() {
+    fetch('sucursal.json') 
+        .then( respuesta => respuesta.json())
+        .then( resultado => mostrarHTML(resultado));
+ 
 }
 
-function renderizarimagenesZapatillas(zapaNikeDos) {
-  for(const imagenZapatillaNike of imagenesZapatillas){
-    console.log(imagenZapatillaNike);
-  }
+function mostrarHTML({Provincia, Localidad, Direccion}) {
+    const contenido = document.querySelector('.contenido');
+
+    contenido.innerHTML = `
+        <p class="card-title pt-2 text-center text-primary">Provincia: ${Provincia} </p>
+        <p class="card-title pt-2 text-center text-primary">Localidad: ${Localidad} </p>
+        <p class="card-title pt-2 text-center text-primary">Dirección: ${Direccion} </p>
+    `
 }
-  
-
-function obtenerImagenJson () {
-  fetch('imagenes.json')
-    .then( (response) => {
-      return response.json();
-    })
-    .then( (imagenesJSON) => {
-
-      for (const zapaNikeJSON of imagenesJSON){
-        zapaNikeDos.push(new zapaNike(
-          imagenesJSON.imagenZapatilla
-        ));
-      }
-
-      zapaNikeDos = imagenesJSON;
-
-    });
-
-}
-
-
-const imagenesZapatillas = document.getElementById('carousel-imagen');
-let zapaNikeDos = [];
-obtenerImagenJson();

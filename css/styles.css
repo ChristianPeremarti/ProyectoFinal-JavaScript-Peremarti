@@ -39,3 +39,9 @@ header, .alert{
 .hide, .remove{
   display: none;
 }
+
+.empleado{
+  height: 50px;
+  text-align: center;
+  background-color: aliceblue;
+}
